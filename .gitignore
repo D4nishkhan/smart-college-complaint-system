@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.env
+
+# Flask
+instance/
+
+# Java / Spring Boot
+target/
+*.log
+
+# IntelliJ / VS Code
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
