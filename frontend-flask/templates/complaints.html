@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% set title = "Complaints" %}
+
+{% block content %}
+<h2>Complaints (Student)</h2>
+
+<article>
+  <h3>Raise a Complaint</h3>
+  <form method="POST">
+    <label>
+      Title
+      <input type="text" name="title" placeholder="e.g., Classroom projector not working" required>
+    </label>
+
+    <label>
+      Description
+      <textarea name="description" rows="4" placeholder="Explain the issue..." required></textarea>
+    </label>
+
+    <label>
+      Department
+      <select name="department_id" required>
+        <option value="" selected disabled>Select department</option>
+        {% for d in departments %}
+          <option value="{{ d.id }}">{{ d.name }}</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <button type="submit">Submit Complaint</button>
+  </form>
+</article>
+
+<article>
+  <h3>My Complaints ({{ complaints|length }})</h3>
+  <figure>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Department</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in complaints %}
+        <tr>
+          <td>{{ c.id }}</td>
+          <td>{{ c.title }}</td>
+          <td>{{ c.department.name if c.department else "-" }}</td>
+          <td>
+            {% if c.status == "RESOLVED" %}
+              ✅ {{ c.status }}
+            {% elif c.status == "IN_PROGRESS" %}
+              🟡 {{ c.status }}
+            {% else %}
+              ⏳ {{ c.status }}
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </figure>
+</article>
+{% endblock %}

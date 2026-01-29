@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or "Smart College" }}</title>
+
+  <!-- No custom CSS. Only CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@2/css/pico.min.css">
+</head>
+<body>
+  <header class="container">
+    <nav>
+      <ul>
+        <li><strong>Smart College</strong></li>
+      </ul>
+      <ul>
+        <li><a href="/departments">Departments</a></li>
+        <li><a href="/students">Students</a></li>
+        <li><a href="/complaints">Complaints</a></li>
+        <li><a href="/admin/complaints">Admin</a></li>
+        <li><a href="/superadmin/dashboard">Principal</a></li>
+      </ul>
+    </nav>
+    <hr>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="container">
+    <hr>
+    <small>Flask UI → Spring Boot API → MySQL</small>
+  </footer>
+</body>
+</html>

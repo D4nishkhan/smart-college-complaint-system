@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% set title = "Departments" %}
+
+{% block content %}
+<h2>Departments</h2>
+
+<article>
+  <h3>Add Department</h3>
+  <form method="POST">
+    <label>
+      Department Name
+      <input type="text" name="name" placeholder="e.g., Computer Science" required>
+    </label>
+    <button type="submit">Add</button>
+  </form>
+</article>
+
+<article>
+  <h3>All Departments ({{ departments|length }})</h3>
+  <figure>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in departments %}
+        <tr>
+          <td>{{ d.id }}</td>
+          <td>{{ d.name }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </figure>
+</article>
+{% endblock %}
