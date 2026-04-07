@@ -1,0 +1,59 @@
+:root{
+  --text-strong: rgba(233,240,255,.96);
+  --text-soft: rgba(233,240,255,.86);
+  --border: rgba(255,255,255,.12);
+  --card: rgba(255,255,255,.06);
+}
+
+.app-bg{
+  min-height:100vh;
+  background: radial-gradient(900px 500px at 20% 0%, #1a2a55 0%, #0b1220 55%);
+  color: var(--text-strong);
+}
+
+.text-soft{ color: var(--text-soft) !important; }
+
+.nav-glass{
+  background: rgba(11,18,32,.60) !important;
+  backdrop-filter: blur(10px);
+}
+
+.card-glass{
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 20px 60px rgba(0,0,0,.30);
+}
+
+.ui-input{
+  background: rgba(0,0,0,.25) !important;
+  border: 1px solid rgba(255,255,255,.15) !important;
+  color: #e9f0ff !important;
+}
+
+.role-card{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding:18px;
+  border-radius:18px;
+  background: var(--card);
+  border:1px solid var(--border);
+  transition: transform .15s ease, border-color .15s ease, background .15s ease;
+  min-height: 210px;          /* ✅ equal height */
+}
+.role-card:hover{
+  transform: translateY(-4px);
+  border-color: rgba(13,202,240,.35);
+  background: rgba(255,255,255,.08);
+}
+
+.badge-pill{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:800;
+  font-size:12px;
+}
+.badge-pill.info{background:rgba(13,202,240,.15); color:#a9f2ff; border:1px solid rgba(13,202,240,.25);}
+.badge-pill.warning{background:rgba(255,193,7,.12); color:#ffe39b; border:1px solid rgba(255,193,7,.25);}
+.badge-pill.danger{background:rgba(220,53,69,.12); color:#ffb0bd; border:1px solid rgba(220,53,69,.25);}

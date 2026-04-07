@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="p-4 rounded-4 card-glass">
+  <h2 class="fw-bold mb-1">Teacher</h2>
+  <p class="text-soft mb-3">Register request or Login?</p>
+
+  <div class="d-flex gap-2 flex-wrap">
+    <a class="btn btn-warning fw-bold" href="/teacher/register">Register (Request)</a>
+    <a class="btn btn-outline-light fw-bold" href="/teacher/login">Login</a>
+  </div>
+
+  <div class="text-soft small mt-3">
+    Note: Principal approve + department assign ke baad hi login hoga.
+  </div>
+</div>
+
+{% endblock %}

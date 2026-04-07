@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="p-4 rounded-4 card-glass">
+  <h3 class="fw-bold mb-3">Student Login</h3>
+
+  {% if msg %}<pre class="out">{{ msg }}</pre>{% endif %}
+
+  <form method="post">
+    <label class="form-label text-soft">Email</label>
+    <input class="form-control form-control-lg ui-input mb-3" name="email" required>
+
+    <label class="form-label text-soft">Password</label>
+    <input type="password" class="form-control form-control-lg ui-input mb-3" name="password" required>
+
+    <button class="btn btn-outline-light fw-bold">Login</button>
+    <a class="btn btn-info fw-bold ms-2" href="/student/register">Register</a>
+  </form>
+</div>
+{% endblock %}

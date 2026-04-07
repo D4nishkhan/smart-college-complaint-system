@@ -1,0 +1,16 @@
+* students complaint delete: USE smart_college;
+			     SELECT id, title, student_id, status FROM complaints;
+		             DELETE FROM complaints WHERE id = 12;
+* Teacher details delete: USE smart_college;
+			  SELECT id, name, email, is_verified, department_id FROM teachers;
+			  DELETE FROM teachers WHERE id = 3;
+
+*Department Delete : USE smart_college;
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE complaints;
+TRUNCATE TABLE students;
+TRUNCATE TABLE teachers;
+TRUNCATE TABLE departments;
+
+SET FOREIGN_KEY_CHECKS = 1;

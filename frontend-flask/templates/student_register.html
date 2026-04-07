@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row g-3">
+  <div class="col-lg-7">
+    <div class="p-4 rounded-4 card-glass">
+      <h3 class="fw-bold mb-3">Student Register</h3>
+
+      {% if msg %}<pre class="out">{{ msg }}</pre>{% endif %}
+
+      <form method="post">
+        <label class="form-label text-soft">Name</label>
+        <input class="form-control form-control-lg ui-input mb-3" name="name" required>
+
+        <label class="form-label text-soft">Email</label>
+        <input class="form-control form-control-lg ui-input mb-3" name="email" required>
+
+        <label class="form-label text-soft">Password</label>
+        <input type="password" class="form-control form-control-lg ui-input mb-3" name="password" required>
+
+        <label class="form-label text-soft">Department</label>
+        <select class="form-select form-select-lg ui-input mb-3" name="departmentId" required>
+          {% for d in depts %}
+            <option value="{{ d.id }}">{{ d.id }} - {{ d.name }}</option>
+          {% endfor %}
+        </select>
+
+        <button class="btn btn-info fw-bold">Register</button>
+        <a class="btn btn-outline-light fw-bold ms-2" href="/student/login">Login</a>
+      </form>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="p-4 rounded-4 card-glass">
+      <p class="text-soft mb-0">Register successful -> dashboard open automatically (session me key save).</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

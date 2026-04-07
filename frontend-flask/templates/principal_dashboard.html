@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="p-4 rounded-4 card-glass mb-3 d-flex justify-content-between align-items-center">
+  <div>
+    <h2 class="fw-bold mb-1">Principal Dashboard</h2>
+    <div class="text-soft small">Teachers + Departments + Complaint Status Control</div>
+  </div>
+  <a class="btn btn-sm btn-outline-light" href="/principal/logout">Logout</a>
+</div>
+
+{% if msg %}
+  <div class="alert alert-info">{{ msg }}</div>
+{% endif %}
+
+<div class="row g-3">
+  <!-- LEFT: Departments -->
+  <div class="col-lg-4">
+    <div class="p-4 rounded-4 card-glass mb-3">
+      <h4 class="fw-bold mb-3">Add Department</h4>
+      <form method="post">
+        <label class="form-label text-soft">Department Name</label>
+        <input class="form-control form-control-lg ui-input mb-3" name="dept_name" required>
+        <button class="btn btn-success fw-bold">Add</button>
+      </form>
+    </div>
+
+    <div class="p-4 rounded-4 card-glass">
+      <h5 class="fw-bold mb-3">Departments</h5>
+      <div class="table-responsive">
+        <table class="table table-dark table-sm table-bordered align-middle">
+          <thead><tr><th>ID</th><th>Name</th></tr></thead>
+          <tbody>
+            {% for d in depts %}
+              <tr><td>{{ d.id }}</td><td>{{ d.name }}</td></tr>
+            {% endfor %}
+            {% if depts|length == 0 %}
+              <tr><td colspan="2" class="text-center text-soft">No departments yet</td></tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Teachers + Status -->
+  <div class="col-lg-8">
+    <div class="p-4 rounded-4 card-glass mb-3">
+      <h4 class="fw-bold mb-3">Pending Teachers (Need Approval)</h4>
+      <div class="table-responsive">
+        <table class="table table-dark table-sm table-bordered align-middle">
+          <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Action</th></tr></thead>
+          <tbody>
+            {% for t in pending %}
+            <tr>
+              <td>{{ t.id }}</td>
+              <td>{{ t.name }}</td>
+              <td>{{ t.email }}</td>
+              <td>
+                <a class="btn btn-sm btn-success"
+                   href="/principal/dashboard?action=approve&teacherId={{ t.id }}&approved=true">Approve</a>
+                <a class="btn btn-sm btn-danger"
+                   href="/principal/dashboard?action=approve&teacherId={{ t.id }}&approved=false">Reject</a>
+              </td>
+            </tr>
+            {% endfor %}
+            {% if pending|length == 0 %}
+              <tr><td colspan="4" class="text-center text-soft">No pending teachers</td></tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="p-4 rounded-4 card-glass mb-3">
+      <h4 class="fw-bold mb-3">Approved Teachers (Assign Department)</h4>
+      <div class="table-responsive">
+        <table class="table table-dark table-sm table-bordered align-middle">
+          <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Assign</th></tr></thead>
+          <tbody>
+            {% for t in unassigned %}
+            <tr>
+              <td>{{ t.id }}</td>
+              <td>{{ t.name }}</td>
+              <td>{{ t.email }}</td>
+              <td>
+                <form class="d-flex gap-2" method="get" action="/principal/dashboard">
+                  <input type="hidden" name="action" value="assignDept">
+                  <input type="hidden" name="teacherId" value="{{ t.id }}">
+                  <select class="form-select form-select-sm ui-input" name="deptId">
+                    {% for d in depts %}
+                      <option value="{{ d.id }}">{{ d.name }}</option>
+                    {% endfor %}
+                  </select>
+                  <button class="btn btn-sm btn-outline-light fw-bold">Assign</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+            {% if unassigned|length == 0 %}
+              <tr><td colspan="4" class="text-center text-soft">No approved teachers waiting for department</td></tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+
+      <hr class="border-light border-opacity-10">
+
+      <h4 class="fw-bold mb-3">Update Complaint Status</h4>
+      <form class="row g-2" method="get" action="/principal/dashboard">
+        <input type="hidden" name="action" value="status">
+        <div class="col-md-4">
+          <input class="form-control ui-input" name="complaintId" placeholder="Complaint ID" required>
+        </div>
+        <div class="col-md-4">
+          <select class="form-select ui-input" name="status">
+            <option value="PENDING">PENDING</option>
+            <option value="IN_PROGRESS">IN_PROGRESS</option>
+            <option value="SOLVED">SOLVED</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-outline-info fw-bold w-100">Update</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- ✅ NEW: Complaints Table -->
+    <div class="p-4 rounded-4 card-glass">
+      <h4 class="fw-bold mb-3">All Complaints</h4>
+
+      <div class="table-responsive" style="max-height:420px; overflow:auto;">
+        <table class="table table-dark table-sm table-bordered align-middle">
+          <thead>
+            <tr>
+              <th>Complaint ID</th>
+              <th>Student</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in complaints %}
+            <tr>
+              <td>{{ c.id }}</td>
+              <td>{{ c.studentName }} (ID: {{ c.studentId }})</td>
+              <td>{{ c.title }}</td>
+              <td style="min-width:260px">{{ c.description }}</td>
+              <td>{{ c.status }}</td>
+            </tr>
+            {% endfor %}
+            {% if complaints|length == 0 %}
+              <tr><td colspan="5" class="text-center text-soft">No complaints yet</td></tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

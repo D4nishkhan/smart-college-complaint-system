@@ -1,39 +1,51 @@
 {% extends "base.html" %}
-{% set title = "Departments" %}
-
 {% block content %}
-<h2>Departments</h2>
 
-<article>
-  <h3>Add Department</h3>
-  <form method="POST">
-    <label>
-      Department Name
-      <input type="text" name="name" placeholder="e.g., Computer Science" required>
-    </label>
-    <button type="submit">Add</button>
-  </form>
-</article>
+<div class="p-4 rounded-4 card-glass mb-3">
+  <h2 class="fw-bold mb-1">Departments</h2>
+  <p class="text-soft mb-0">New DB ke liye pehle departments add karo.</p>
+</div>
 
-<article>
-  <h3>All Departments ({{ departments|length }})</h3>
-  <figure>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for d in departments %}
-        <tr>
-          <td>{{ d.id }}</td>
-          <td>{{ d.name }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </figure>
-</article>
+<div class="row g-3">
+  <div class="col-lg-5">
+    <div class="p-4 rounded-4 card-glass">
+      <h4 class="fw-bold mb-3">Add Department</h4>
+
+      {% if msg %}<pre class="out">{{ msg }}</pre>{% endif %}
+
+      <form method="post">
+        <label class="form-label text-soft">Department Name</label>
+        <input class="form-control form-control-lg ui-input mb-3" name="name" placeholder="Computer science" required>
+
+        <button class="btn btn-success fw-bold">Add</button>
+      </form>
+
+      <div class="text-soft small mt-3">
+        Tip: name clean rakho (no extra spaces).
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-7">
+    <div class="p-4 rounded-4 card-glass">
+      <h4 class="fw-bold mb-3">All Departments</h4>
+
+      <div class="table-responsive">
+        <table class="table table-dark table-sm table-bordered align-middle">
+          <thead><tr><th>ID</th><th>Name</th></tr></thead>
+          <tbody>
+            {% for d in depts %}
+            <tr><td>{{ d.id }}</td><td>{{ d.name }}</td></tr>
+            {% endfor %}
+            {% if depts|length == 0 %}
+              <tr><td colspan="2" class="text-center text-soft">No departments yet</td></tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 {% endblock %}

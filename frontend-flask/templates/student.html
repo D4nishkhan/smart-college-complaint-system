@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row g-3">
+  <div class="col-12">
+    <div class="p-4 rounded-4 card-glass">
+      <h2 class="fw-bold mb-1">Student Portal</h2>
+      <p class="text-light text-opacity-75 mb-0">
+        Hover / focus any field → Android bot peeche se hello karega.
+      </p>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="p-4 rounded-4 card-glass">
+      <h4 class="fw-bold mb-3">Register (Demo)</h4>
+
+      <label class="form-label text-light text-opacity-75">Name</label>
+      <input data-bot="student" class="form-control form-control-lg ui-input" placeholder="Student name">
+
+      <label class="form-label text-light text-opacity-75 mt-3">Email</label>
+      <input data-bot="student" class="form-control form-control-lg ui-input" placeholder="email@gmail.com">
+
+      <label class="form-label text-light text-opacity-75 mt-3">Password</label>
+      <input data-bot="student" type="password" class="form-control form-control-lg ui-input" placeholder="••••">
+
+      <label class="form-label text-light text-opacity-75 mt-3">Department</label>
+      <select data-bot="student" class="form-select form-select-lg ui-input">
+        <option>Computer science</option>
+        <option>IT</option>
+        <option>Mechanical</option>
+      </select>
+
+      <button class="btn btn-info fw-bold mt-3">Register</button>
+      <div class="small text-light text-opacity-75 mt-2">(Backend integration later in this UI)</div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="p-4 rounded-4 card-glass">
+      <h4 class="fw-bold mb-3">Create Complaint (Demo)</h4>
+
+      <label class="form-label text-light text-opacity-75">Title</label>
+      <input data-bot="student" class="form-control form-control-lg ui-input" placeholder="Projector Not Displaying">
+
+      <label class="form-label text-light text-opacity-75 mt-3">Description</label>
+      <textarea data-bot="student" class="form-control form-control-lg ui-input" rows="5"
+        placeholder="Room 204 me projector on hota hai but display nahi aa raha."></textarea>
+
+      <button class="btn btn-outline-light fw-bold mt-3">Submit</button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
