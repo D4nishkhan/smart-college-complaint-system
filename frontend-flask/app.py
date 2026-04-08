@@ -13,15 +13,15 @@ FLASK_SECRET = os.getenv("FLASK_SECRET", "smart-college-dev-secret")
 # BACKEND HTTP HELPERS
 # ===============================
 def backend_get(path, headers=None):
-    return requests.get(f"{BACKEND_BASE}{path}", headers=headers, timeout=8)
+    return requests.get(f"{BACKEND_BASE}{path}", headers=headers, timeout=90)
 
 
 def backend_post(path, json=None, headers=None):
-    return requests.post(f"{BACKEND_BASE}{path}", json=json, headers=headers, timeout=8)
+    return requests.post(f"{BACKEND_BASE}{path}", json=json, headers=headers, timeout=90)
 
 
 def backend_put(path, params=None, headers=None):
-    return requests.put(f"{BACKEND_BASE}{path}", params=params, headers=headers, timeout=8)
+    return requests.put(f"{BACKEND_BASE}{path}", params=params, headers=headers, timeout=90)
 
 
 def err_msg(resp):
