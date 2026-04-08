@@ -4,11 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Table(name = "students")
-public class Student {
+@Table(name = "teachers")
+public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,17 +23,20 @@ public class Student {
     @Column(nullable=false)
     private String password;
 
-    @JsonIgnore
-    @Column(name="api_key", unique = true)
-    private String apiKey;
+    // ✅ Now assigned by Principal after approval (nullable at registration time)
+    @Column(name="employee_code", unique=true)
+    private String employeeCode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="department_id", nullable = false)
+    @Column(name="is_verified")
+    private boolean verified = false;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="department_id")
     private Department department;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    private List<Complaint> complaints;
+    @Column(name="api_key", unique=true)
+    private String apiKey;
 
     @Column(name="created_at")
     private LocalDateTime createdAt;
@@ -55,11 +57,17 @@ public class Student {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public String getApiKey() { return apiKey; }
-    public void setApiKey(String apiKey) { this.apiKey = apiKey; }
+    public String getEmployeeCode() { return employeeCode; }
+    public void setEmployeeCode(String employeeCode) { this.employeeCode = employeeCode; }
+
+    public boolean isVerified() { return verified; }
+    public void setVerified(boolean verified) { this.verified = verified; }
 
     public Department getDepartment() { return department; }
     public void setDepartment(Department department) { this.department = department; }
+
+    public String getApiKey() { return apiKey; }
+    public void setApiKey(String apiKey) { this.apiKey = apiKey; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
 }

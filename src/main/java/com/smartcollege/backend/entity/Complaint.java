@@ -1,36 +1,48 @@
 package com.smartcollege.backend.entity;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "complaints")
+@Table(name="complaints")
 public class Complaint {
+
+    public enum Status {
+        PENDING,
+        IN_PROGRESS,
+        SOLVED
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // complaint -> student
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="student_id", nullable=false)
+    private Student student;
+
+    @Column(nullable=false)
     private String title;
 
-    @Column(length = 1000)
+    @Column(nullable=false, columnDefinition="TEXT")
     private String description;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable=false)
+    private Status status = Status.PENDING;
 
+    @Column(name="created_at")
     private LocalDateTime createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department department;
+    @PrePersist
+    protected void onCreate() { this.createdAt = LocalDateTime.now(); }
 
-    public Complaint() {
-        this.status = "PENDING";
-        this.createdAt = LocalDateTime.now();
-    }
-
-    // getters & setters
     public Long getId() { return id; }
+
+    public Student getStudent() { return student; }
+    public void setStudent(Student student) { this.student = student; }
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
@@ -38,12 +50,8 @@ public class Complaint {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public Status getStatus() { return status; }
+    public void setStatus(Status status) { this.status = status; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
-
-    public Department getDepartment() { return department; }
-    public void setDepartment(Department department) { this.department = department; }
 }
-
