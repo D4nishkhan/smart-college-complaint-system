@@ -5,7 +5,7 @@ import os
 # ===============================
 # CONFIG
 # ===============================
-BACKEND_BASE = os.getenv("BACKEND_BASE", "http://localhost:8082")
+BACKEND_BASE = os.getenv("BACKEND_BASE", "https://smart-college-backend.onrender.com")
 FLASK_SECRET = os.getenv("FLASK_SECRET", "smart-college-dev-secret")
 
 
